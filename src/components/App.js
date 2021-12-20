@@ -13,7 +13,7 @@ class App extends Component {
             target="_blank"
             rel="noopener noreferrer"
           >
-            DApp
+            DApp de Patricio
           </a>
         </nav>
         <div className="container-fluid mt-5">
@@ -27,7 +27,7 @@ class App extends Component {
                 >
                   <img src={logo} className="App-logo" alt="logo" />
                 </a>
-                <h1>DApp</h1>
+                <h1>DApp de Patricio</h1>
                 <p>
                   Edita <code>src/components/App.js</code> y guarda para recargar.
                 </p>
