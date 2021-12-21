@@ -52,6 +52,15 @@ class App extends Component {
     }
   }
 
+  // Funcion para crear un nuevo Color NFT
+  mint = (color) => {
+    console.log('Nuevo NFT en procedimiento')
+    this.state.contract.methods.mint(color).send({from: this.state.account}) // Es un envio de datos a la blockchain = send;
+    .once('receipt', (receipt) => {
+      this.setState({colors: [...this.state.colors, color]})
+    });
+  }
+
   // Constructor
   constructor(props) {
     super(props);
