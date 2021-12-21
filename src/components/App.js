@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from '../logo.png';
 import './App.css';
 import Web3 from 'web3';
 import Color from '../abis/Color.json'
@@ -39,7 +38,7 @@ class App extends Component {
       this.setState({contract});
 
       // Funcion totalSupply del Smart Contract
-      const totalSupply = contract.methods.totalSupply().call(); // Coger información de la blockchain = call | Enviar informacion a la blockchain = send
+      const totalSupply = await contract.methods.totalSupply().call(); // Coger información de la blockchain = call | Enviar informacion a la blockchain = send
       this.setState({totalSupply});
 
       // Carga de colores
@@ -85,32 +84,53 @@ class App extends Component {
           >
             DApp de Patricio
           </a>
+
+          <ul className="navbar-nav px-3">
+            <li className='nav-item text-nowrap d-none d-sm-none d-sm-block'>
+              <small className='text-white'>
+                <span id='account'>{this.state.account}</span>
+              </small>
+            </li>
+          </ul>
         </nav>
         <div className="container-fluid mt-5">
           <div className="row">
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
-                <a
-                  href="https://frogames.es/rutas-de-aprendizaje"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img src={logo} className="App-logo" alt="logo" />
-                </a>
-                <h1>DApp de Patricio</h1>
-                <p>
-                  Edita <code>src/components/App.js</code> y guarda para recargar.
-                </p>
-                <a
-                  className="App-link"
-                  href="https://frogames.es/rutas-de-aprendizaje"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                   APRENDE BLOCKCHAIN <u><b>AHORA! </b></u>
-                </a>
+
+                <h1>DApp de un collecionable de NFT's</h1>
+
+                <form onSubmit={(event) => {
+                  event.preventDefault();
+                  const color = this.color.value;
+                  this.mint(color);
+                }}>
+                  <input 
+                    type='text'
+                    className='form-control mb-1'
+                    placeholder='Ej: #FFFFFF'
+                    ref = {(input) => {this.color = input}}
+                  />
+
+                  <input 
+                    type='submit'
+                    className='btn btn-block btn-primary'
+                    value='NUEVO NFT'
+                  />
+                </form>
               </div>
             </main>
+          </div>
+          <hr/>
+          <div className='row text-center'>
+            {this.state.colors.map((color,key) => {
+              return(
+                <div key={key} className='col-md-3 mb-3'>
+                  <div className="token" style={{ backgroundColor: color }}></div>
+                  <div>{color}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
